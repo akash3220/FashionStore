@@ -1,0 +1,419 @@
+@use "./mediaQuery" as *;
+
+body,
+canvas {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  user-select: none;
+}
+
+.blackTint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  backdrop-filter: blur(5px);
+}
+
+#SoundIcon {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 15vw;
+  max-width: 70px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.UIElements {
+  display: block;
+  // width: 100%;
+  // top: 0;
+  // height: 100vh;
+  // position: absolute;
+  // overflow: scroll;
+
+  .landingPage {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 6;
+    user-select: none;
+
+    @include for-mobile-portrait-screen {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .title {
+      // width: 75vw;
+      // max-width: 550px;
+      z-index: 6;
+      user-select: none;
+      width: 58vh;
+      @include for-mobile-portrait-screen {
+        width: 85vw;
+      }
+    }
+
+    .chooseInstrudtion {
+      // width: 90vw;
+      // max-width: 550px;
+      z-index: 6;
+      user-select: none;
+      font-size: min(3.5vw, 22px);
+      font-family: "font1";
+      color: white;
+      text-align: center;
+      font-size: 2.4vh;
+      @include for-mobile-portrait-screen {
+        font-size: 3.4vw;
+      }
+    }
+    .BtnContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2vh;
+      margin-top: 2.5%;
+
+      #battingBtn {
+        // width: 50vw;
+        // max-width: 370px;
+        z-index: 6;
+        cursor: pointer;
+        width: 38vh;
+        @include for-mobile-portrait-screen {
+          width: 60vw;
+        }
+      }
+      #bowlingBtn {
+        // width: 50vw;
+        // max-width: 370px;
+        z-index: 6;
+        cursor: pointer;
+        width: 38vh;
+        @include for-mobile-portrait-screen {
+          width: 60vw;
+        }
+      }
+      #orText {
+        // width: 7vw;
+        // max-width: 60px;
+        z-index: 6;
+        user-select: none;
+        width: 7vh;
+        @include for-mobile-portrait-screen {
+          width: 10vw;
+        }
+      }
+    }
+  }
+
+  .InstructionPage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 6;
+
+    .InstructionBox {
+      width: 40vh;
+      position: relative;
+      @include for-mobile-portrait-screen {
+        width: 75vw;
+      }
+    }
+
+    $instPageTimerValue: 12vh;
+    // $instPageTimerMaxValue: 88px;
+    .instPageTimer {
+      position: absolute;
+      width: $instPageTimerValue;
+      height: calc($instPageTimerValue / 0.883);
+      // max-width: $instPageTimerMaxValue;
+      // max-height: calc($instPageTimerMaxValue / 0.883);
+      top: 65%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-image: url("/UI/instPageTimer.png");
+      background-size: 100%;
+      background-position: 0% 0%;
+
+      @include for-mobile-portrait-screen {
+        width: 22vw;
+        height: calc(22vw / 0.883);
+      }
+    }
+
+    #PlayButton {
+      width: 28vh;
+      margin-top: -8%;
+      cursor: pointer;
+      @include for-mobile-portrait-screen {
+        width: 55vw;
+      }
+    }
+  }
+
+  .LookAroundInstContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55vw;
+    max-width: 400px;
+    z-index: 6;
+
+    $value: 17vh;
+    // $maxValue: 130px;
+    .lookAroundAnime {
+      position: absolute;
+      width: $value;
+      height: calc($value / 1.0066);
+      // max-width: $maxValue;
+      // max-height: calc($maxValue / 1.609);
+      top: 50%;
+      transform: translateY(-50%);
+      // background-image: url("/UI/desktopLookAroundInst.png");
+      background-size: 100%;
+      background-position: 0% 76%;
+    }
+  }
+
+  .ResultPage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 6;
+
+    .ResultBox {
+      // width: 70vw;
+      // max-width: 450px;
+      z-index: 6;
+      width: 45vh;
+      @include for-mobile-portrait-screen {
+        width: 80vw;
+      }
+      .scoreText {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        // font-size: min(12vw, 85px);
+        font-size: 10vh;
+        color: white;
+        // font-weight: bold;
+        z-index: 11;
+        bottom: 18%;
+        text-align: center;
+        font-family: "font1";
+        z-index: 6;
+        @include for-mobile-portrait-screen {
+          font-size: 20vw;
+        }
+      }
+    }
+    #RetryButton {
+      width: 25vh;
+      margin-top: -8%;
+      cursor: pointer;
+      z-index: 6;
+      @include for-mobile-portrait-screen {
+        width: 50vw;
+      }
+    }
+  }
+}
+
+#activateBtn {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #1e90ff;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.objectHolder {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  top: 10%;
+  z-index: 10;
+  width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  .objectItemBg {
+    position: relative;
+    width: 15vh;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    @include for-mobile-portrait-screen {
+      width: 16vw;
+    }
+
+    .glow_circle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      background-image: url("/UI/circleSeq.png");
+      background-size: 100%;
+      background-position: 0% 0%;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    .objectImg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    .tickImg {
+      display: block;
+      position: absolute;
+      width: 65%;
+      top: 49%;
+      left: 51%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+  }
+}
+
+.timerContainer {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16vh;
+  // max-width: 130px;
+  z-index: 10;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  @include for-mobile-portrait-screen {
+    width: 30vw;
+  }
+
+  .timeText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4vh;
+    color: rgb(207 211 207);
+    font-family: "font2";
+    z-index: 11;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    @include for-mobile-portrait-screen {
+      font-size: 7vw;
+    }
+  }
+  .RedTimerImg {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+}
+
+// .impact-area {
+//   position: absolute;
+//   width: 200px;
+//   height: 200px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   /* Add a background color simulating the powder base if needed */
+//   top: 40%;
+//   left: 40%;
+// }
+
+.powder-particle {
+  position: absolute;
+  width: 4vw; /* Small powder grain size */
+  height: 4vw;
+  background: #e0e0e0; /* Light powder color */
+  border-radius: 100%;
+  opacity: 0;
+  filter: blur(3px); /* Soften edges */
+  animation: radialSplash var(--duration) ease-out forwards;
+  /* Start exactly at the center of impact */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+@keyframes radialSplash {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    /* Use CSS variables for random direction and distance */
+    /* Moves the particle in the direction of the --angle, a distance of 15vmin (viewport units) */
+    transform: translate(-50%, -50%) rotate(var(--angle)) translate(15vmin);
+    scale: 0.5; /* Shrink as they fly out */
+  }
+}

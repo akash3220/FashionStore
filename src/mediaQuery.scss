@@ -1,0 +1,11 @@
+@mixin for-mobile-portrait-screen {
+  @media (max-width: 1024px) and (max-aspect-ratio: 13/10) {
+    @content;
+  }
+}
+
+@mixin for-wide-desktop {
+  @media (min-width: 1400px) and (min-aspect-ratio: 16/10) {
+    @content;
+  }
+}

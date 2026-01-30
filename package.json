@@ -1,0 +1,22 @@
+{
+  "name": "threejs-journey-exercise",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^2.1.0",
+    "sass-embedded": "^1.93.3",
+    "vite": "^6.2.2",
+    "vite-plugin-restart": "^0.4.2"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "latest": "^0.2.0",
+    "three": "^0.181.1",
+    "three.orientation": "^1.1.1"
+  }
+}

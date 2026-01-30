@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360 Locker Room Hunt - Lookaround & Collect</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" type="image/x-icon" href="/UI/Favicon.png" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="theme-color" content="#0dbdca">
+    <meta property="fb:app_id" content="966242223397117">
+    <meta property="og:title" content="360 Locker Room Hunt - Lookaround & Collect">
+    <meta property="og:image" content="https://newsfeedsmartapp.com/lockerroom/Thumbnail.png">
+    <meta property="og:description"
+        content="Explore a fully interactive 360° cricket locker room, find hidden gear, and collect items before time runs out. Tap or drag to look around!">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://newsfeedsmartapp.com/lockerroom/index.html">
+    <meta name="author" content="alivenow">
+    <meta property="og:site_name" content="Alivenow">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="360 Locker Room Hunt - Lookaround & Collect">
+    <meta name="twitter:description"
+        content="Explore a fully interactive 360° cricket locker room, find hidden gear, and collect items before time runs out. Tap or drag to look around!">
+    <meta name="twitter:image" content="https://newsfeedsmartapp.com/lockerroom/Thumbnail.png">
+
+    <meta name="twitter:image" content="https://newsfeedsmartapp.com/lockerroom/Thumbnail.png">
+
+
+    <style>
+        @font-face {
+            font-family: "font1";
+            src: url("/fonts/AktivGrotesk-MediumItalic.otf");
+        }
+
+        @font-face {
+            font-family: "font2";
+            src: url("/fonts/Akira_Expanded_Demo.otf");
+        }
+
+        #loader {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            z-index: 9999;
+            margin: 0;
+            padding: 0;
+        }
+
+        .spinner {
+            border: 6px solid #333;
+            border-top: 6px solid #00ffcc;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+            z-index: 9999;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <audio id="clickAudio" src="/music/Choosing bat or bowl.mp3" preload="auto"></audio>
+    <audio id="collectAudio" src="/music/collecting.mp3" preload="auto"></audio>
+    <audio id="bgAudio" src="/music/Sport-Background-Loop.mp3" preload="auto" loop></audio>
+
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+    <canvas class="webgl"></canvas>
+
+    <div class="blackTint" style="display: none;"></div>
+
+    <div class="UIElements" style="display: block;">
+        <div class="landingPage" style="display: none;">
+            <div class="title">
+                <img src="/UI/TitleLockerRoom.png" alt="TitleLockerRoom">
+            </div>
+            <div class="chooseInstrudtion">
+                Pick batting elements or bowling elements <br> in the locker room?
+            </div>
+            <div class="BtnContainer">
+                <div id="battingBtn">
+                    <img src="/UI/Battingdefault.png" alt="Battingdefault">
+                </div>
+                <div id="orText">
+                    <img src="/UI/Or.png" alt="Or">
+                </div>
+                <div id="bowlingBtn">
+                    <img src="/UI/Bowlingdefault.png" alt="Bowlingdefault">
+                </div>
+            </div>
+
+        </div>
+        <div class="InstructionPage" style="display: none;">
+            <div class="InstructionBox">
+                <img src="/UI/BattingInstruction.png" alt="BattingInstruction">
+                <div class="instPageTimer"></div>
+            </div>
+            <div id="PlayButton">
+                <img src="/UI/PlayRoll.png" alt="PlayButton">
+            </div>
+        </div>
+
+        <div class="LookAroundInstContainer" style="display: none;">
+            <img src="/UI/Lookaround.png" alt="Lookaround">
+            <div class="lookAroundAnime"></div>
+        </div>
+        <div class="ResultPage" style="display: none;">
+            <div class="ResultBox">
+                <img src="/UI/GreatJob.png" alt="GreatJob">
+                <div class="scoreText">0/5</div>
+            </div>
+            <div id="RetryButton">
+                <img src="/UI/RetryRoll.png" alt="Retry">
+            </div>
+        </div>
+    </div>
+
+    <div id="SoundIcon">
+        <img src="/UI/Sound.png" alt="Sound.png">
+    </div>
+
+    <div class="objectHolder" style="display: none;">
+        <div class="objectItemBg" id="objectItemContainer1">
+            <img src="/UI/TopCircle.png" alt="Top-Circle.png">
+            <div class="glow_circle"></div>
+            <img src="/UI/BatB.png" alt="BatB.png" class="objectImg">
+            <img src="/UI/tick.png" alt="tick.png" class="tickImg">
+        </div>
+        <div class="objectItemBg" id="objectItemContainer2">
+            <img src="/UI/TopCircle.png" alt="Top-Circle.png">
+            <div class="glow_circle"></div>
+            <img src="/UI/kneepadB.png" alt="batting_gloveB.png" class="objectImg">
+            <img src="/UI/tick.png" alt="tick.png" class="tickImg">
+        </div>
+        <div class="objectItemBg" id="objectItemContainer3">
+            <img src="/UI/TopCircle.png" alt="Top-Circle.png">
+            <div class="glow_circle"></div>
+            <img src="/UI/helmetB.png" alt="keeper-glove-orangeB.png" class="objectImg">
+            <img src="/UI/tick.png" alt="tick.png" class="tickImg">
+
+        </div>
+        <div class="objectItemBg" id="objectItemContainer4">
+            <img src="/UI/TopCircle.png" alt="Top-Circle.png">
+            <div class="glow_circle"></div>
+            <img src="/UI/keeperGloveB.png" alt="kneepad-orange-stripB.png" class="objectImg">
+            <img src="/UI/tick.png" alt="tick.png" class="tickImg">
+
+        </div>
+        <div class="objectItemBg" id="objectItemContainer5">
+            <img src="/UI/TopCircle.png" alt="Top-Circle.png">
+            <div class="glow_circle"></div>
+            <img src="/UI/shoeblueB.png" alt="shoe-blueB.png" class="objectImg">
+            <img src="/UI/tick.png" alt="tick.png" class="tickImg">
+
+        </div>
+    </div>
+
+    <div class="timerContainer" style="display: none;">
+        <img src="/UI/Timer.png" alt="Timer.png" class="timerBaseImg">
+        <img src="/UI/RedTimer.png" alt="RedTimer.png" class="RedTimerImg">
+        <div class="timeText">30</div>
+    </div>
+
+    <!-- <div class="impact-area"></div> -->
+
+    <script>
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('bgAudio');
+            // audio.volume = 0;
+
+            audio.play().catch(() => {
+                console.log("Autoplay blocked — waiting for user interaction.");
+                document.addEventListener('click', () => audio.play(), { once: true });
+            });
+        });
+    </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js"></script> -->
+    <script type="module" src="./script.js"></script>
+
+</body>
+
+</html>
+
+
+<!-- data-obj="Helmet" -->
